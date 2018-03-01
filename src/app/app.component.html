@@ -1,7 +1,15 @@
-<h2>{{location.latitude}}</h2>
-<form *ngIf="check">
+
+<ul *ngIf="check">
   <input type="text" #s1 required placeholder="Please enter country code"><br>
   <input type="text" #s2 required placeholder="Please enter zipcode"><br><br>
   <button (click)="getWeatherOncoun(s1.value, s2.value)">Submit</button>
+   
+</ul>
+ <!-- testing for interpolation of model -->
+<p>name {{model.name}}</p>
+<p>temp {{model.main.temp}}</p>
+<p>pressure {{model.main.pressure}}</p>
+<p>humidity {{model.main.humidity}}</p>
+<p>temp_min {{model.main.temp_min}}</p>
+<p>temp_max {{model.main.temp_max}}</p>
 
-</form>
