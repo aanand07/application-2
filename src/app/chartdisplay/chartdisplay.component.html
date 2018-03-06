@@ -1,0 +1,40 @@
+<script src="node_modules/chart.js/src/chart.js"></script>
+  <h2>[colors] being undefined prevents all of [datasets]'s colors</h2>
+  <div style="display: block">
+    <canvas baseChart
+      [labels]="labels"
+      [data]="data"
+      [colors]="colorsUndefined"
+      [chartType]="type"
+      ></canvas>
+  </div>
+  
+  <h2>[colors] being empty prevents [datasets]'s backgroundColor</h2>
+  <div style="display: block">
+    <canvas baseChart
+      [labels]="labels"
+      [datasets]="datasets"
+      [colors]="colorsEmpty"
+      [chartType]="type"
+      ></canvas>
+  </div>
+  
+  <h2>[colors] overrides all of [datasets]'s colors</h2>
+  <div style="display: block">
+    <canvas baseChart
+      [labels]="labels"
+      [datasets]="datasets"
+      [colors]="colorsOverride"
+      [chartType]="type"
+      ></canvas>
+  </div>
+  
+  <h2>[colors] being initialize but empty enables all of [datasets] colors</h2>
+  <div style="display: block">
+    <canvas baseChart
+      [labels]="labels"
+      [datasets]="datasets"
+      [colors]="colorsEmptyObject"
+      [chartType]="type"
+      ></canvas>
+  </div>
