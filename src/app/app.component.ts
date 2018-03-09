@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Component, OnInit } from '@angular/core';
+// import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { weatherModelComponent } from './weatherModel.component';
 import { Observable } from 'rxjs/Observable';
+import { DataShareService } from './data-share.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +12,21 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  ngOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.posError.bind(this));
+
+    }
+  }
   location = {};
   check: boolean;
 
   model: weatherModelComponent;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private data: DataShareService) { }
   setPosition(position) {
     console.log(position.coords);
     this.getWeatherOnLonApiCall(position.coords.latitude, position.coords.longitude)
-      .subscribe(response => { this.model = response; console.log(this.model); alert(this.model.id) });
+      .subscribe(response => { this.model = response; this.data.currentMessage.subscribe(model=>{model=model});); 
   }
   posError(error) {
     if (error.code === 1) {
@@ -43,11 +50,5 @@ export class AppComponent implements OnInit {
     return this.http.get(uri)
       .map(response => { return response as weatherModelComponent })
   }
-
-  ngOnInit() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.posError.bind(this));
-
-    }
-  }
 }
+
